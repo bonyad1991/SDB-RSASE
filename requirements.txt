@@ -1,53 +1,99 @@
+
 # =============================================================================
-# SDB Framework — Core dependencies
+# SDB Framework — Python Dependencies
 # =============================================================================
-# These packages are REQUIRED. Without them the module fails to import or the
-# default CLI pipeline (`--mode full`) cannot run end-to-end.
+# Validated environment:
+#   Python 3.10.20
+#
+# All package versions below correspond to the Conda environment used for
+# development and validation of this SDB framework.
 #
 # Install:
 #   pip install -r requirements.txt
 #
-# For optional features (gradient boosting, Optuna HPO, publication plots,
-# the neural mixture-of-experts model), also install:
-#   pip install -r requirements-optional.txt
-#
-# Tested on Python 3.10 / 3.11. On Windows, rasterio/GDAL are far easier to
-# install via conda-forge — see environment.yml instead of this file.
+# Notes:
+#   - Core dependencies are required for the framework and default workflow.
+#   - Optional dependencies enable gradient boosting, Bayesian optimization,
+#     publication-quality figures, and the neural mixture-of-experts model.
+#   - On Windows, rasterio/GDAL and the CPU build of PyTorch may be easier to
+#     reproduce through the provided Conda environment.
 # =============================================================================
 
-# --- Numerical / data handling ----------------------------------------------
-numpy>=1.24,<3.0           # array backend used throughout the framework
-pandas>=1.5,<3.0            # DataFrame I/O, feature tables, all report/CSV/Excel output
-scipy>=1.10                 # PchipInterpolator (depth-error curve fit in ErrorPropagator);
-                             # scipy.stats.wilcoxon (ModelComplexityLadder significance test)
 
-# --- Machine learning core (scikit-learn) -----------------------------------
-# Powers: RandomForestSDB, ExtraTreesSDB, SVR_SDB, MLP_SDB, ClusterBasedRegression
-# (KMeans), GMMSoftMixtureSDB (GaussianMixture), LearnedGatingStrategy
-# (RandomForestRegressor), RobustScaler/StandardScaler/SimpleImputer in
-# FeatureEngineer, all metrics (RMSE/MAE/R2), KFold/LeaveOneOut in
-# SpatialValidator, and SDBExplainer.compute_permutation_importance.
-scikit-learn>=1.2
+# -----------------------------------------------------------------------------
+# Core numerical and data-processing stack
+# -----------------------------------------------------------------------------
 
-# --- Geospatial raster I/O ---------------------------------------------------
-# Powers: RasterSampler (field-point band sampling) and RasterInferenceEngine
-# (tiled GeoTIFF prediction + uncertainty raster). Requires GDAL under the hood.
-rasterio>=1.3
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
 
-# --- Model persistence --------------------------------------------------------
-# Powers: SDBOperationalPipeline's final `.joblib` bundle export, and
-# `load_deployment_bundle()` / `--mode predict`. Required for deployment, not
-# just an optional convenience.
-joblib>=1.2
 
-# --- Tabular file I/O ----------------------------------------------------------
-# Powers: RasterSampler.read_field_data (.xlsx field data), the multi-sheet
-# "article results" workbook writer, and workbook styling (openpyxl.styles /
-# formatting.rule / utils used in _style_article_workbook).
-openpyxl>=3.1
+# -----------------------------------------------------------------------------
+# Machine learning
+# -----------------------------------------------------------------------------
 
-# --- Configuration files -------------------------------------------------------
-# Powers: SDBConfig.save() / SDBConfig.from_yaml() and the `--config file.yaml`
-# CLI option. Falls back to JSON if absent, but YAML config files will not
-# load without it.
-PyYAML>=6.0
+scikit-learn==1.7.2
+
+
+# -----------------------------------------------------------------------------
+# Geospatial raster processing
+# -----------------------------------------------------------------------------
+
+rasterio==1.4.4
+
+
+# -----------------------------------------------------------------------------
+# Model persistence and tabular file I/O
+# -----------------------------------------------------------------------------
+
+joblib==1.5.3
+openpyxl==3.1.5
+
+
+# -----------------------------------------------------------------------------
+# Configuration management
+# -----------------------------------------------------------------------------
+
+PyYAML==6.0.3
+
+
+# =============================================================================
+# Optional dependencies
+# =============================================================================
+# The following packages enable additional models and analysis features.
+# They are included here to allow reproduction of the complete validated
+# framework environment with a single requirements file.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Gradient-boosting models
+# -----------------------------------------------------------------------------
+
+xgboost==3.2.0
+lightgbm==4.7.0
+catboost==1.2.10
+
+
+# -----------------------------------------------------------------------------
+# Bayesian hyper-parameter optimization
+# -----------------------------------------------------------------------------
+
+optuna==4.9.0
+
+
+# -----------------------------------------------------------------------------
+# Publication-quality visualization
+# -----------------------------------------------------------------------------
+
+matplotlib==3.10.9
+
+
+# -----------------------------------------------------------------------------
+# Neural mixture-of-experts
+# -----------------------------------------------------------------------------
+
+# CPU build used in the validated SDB environment.
+torch==2.13.0+cpu
+

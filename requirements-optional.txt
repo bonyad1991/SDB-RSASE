@@ -1,0 +1,38 @@
+# =============================================================================
+# SDB Framework — Optional dependencies
+# =============================================================================
+# Nothing here is required to import the module or run the default pipeline.
+# Every package below is imported lazily inside a try/except in the source
+# code; if it is missing, only the specific feature that needs it raises a
+# clear ImportError, everything else keeps working.
+#
+# Install everything:
+#   pip install -r requirements-optional.txt
+#
+# Or install just what you need — see the per-package notes below.
+# =============================================================================
+
+# --- Gradient-boosting models -------------------------------------------------
+# Enable with: --models xgboost / --models lightgbm / --models catboost
+xgboost>=1.7               # required by XGBoost_SDB
+lightgbm>=4.0               # required by LightGBM_SDB
+catboost>=1.2                # required by CatBoost_SDB
+
+# --- Bayesian hyper-parameter optimization -----------------------------------
+# Enable with: --hpo
+optuna>=3.0                  # required by BayesianOptimizer and every
+                              # `_space_*` search-space function
+
+# --- Publication-quality figures ----------------------------------------------
+# Generated automatically as part of `--mode full` unless the run fails over;
+# required for RSEPublicationPlotter (plots/*.png + *.pdf, 1000 dpi,
+# Palatino-Linotype 10 pt style) and for _write_article_results_workbook's
+# embedded charts.
+matplotlib>=3.7
+
+# --- Neural mixture-of-experts -------------------------------------------------
+# Enable with: --models moe
+# Required by MixtureOfExpertsSDB (the differentiable gating network).
+# NOT required by hetero_moe — that model's LearnedGatingStrategy is a plain
+# scikit-learn RandomForestRegressor and needs no deep-learning backend.
+torch>=2.0

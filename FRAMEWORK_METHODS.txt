@@ -1,0 +1,19 @@
+Methodology highlights
+Quality control of field points, global reflectance scaling, spatial holdout (default 20 %) before any batch statistics are learned.
+Fit-on-training-only feature engineering — 60+ spectral features (Stumpf ratios, Lyzenga-corrected logs, water/turbidity indices) frozen at training time.
+Repeated spatial cross-validation — block-verified (ARI), every repetition reseeds stochastic models so reported mean ± sd is genuine.
+Model tournament — lowest repeated-CV RMSE wins (R²/CCC tie-break); only models completing both CV and holdout are eligible.
+Independent holdout + bootstrap — point estimates with 95 % CIs; depth-stratified metrics over the 0–3 m bins.
+Uncertainty & sensitivity — Monte-Carlo reflectance noise, spatially correlated error fields, OAT sensitivity, noise robustness, permutation importance.
+Deployment — final refit on all observations, tiled inference, uncertainty raster, complete Results workbook.
+
+Reproducibility
+Fixed seed (random_seed = 42) seeds Python, NumPy, scikit-learn models and (if installed) PyTorch.
+All CV, bootstrap and Monte-Carlo draws derive from that seed.
+Exact dependency bounds in requirements.txt.
+Configuration is snapshotted into deployment_manifest.json for every run.
+
+Acknowledgements
+Field campaigns, Copernicus Sentinel-2 imagery, and the open-source
+scientific Python ecosystem (NumPy, SciPy, scikit-learn, rasterio,
+Matplotlib, Optuna).

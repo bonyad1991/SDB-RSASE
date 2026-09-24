@@ -1,0 +1,13 @@
+# ============================================================================
+# Repository integrity rules for the published paper code.
+# ============================================================================
+
+# The paper's source file must stay byte-identical on every machine:
+# disable any line-ending normalisation for Python sources.
+*.py -text
+
+# Data files are binary — never touched by Git.
+*.tif -text
+*.tiff -text
+*.xlsx -text
+*.joblib -text

@@ -1,0 +1,77 @@
+# ============================================================================
+# SDB Framework — .gitignore
+# Keeps the repository light: code + small samples in Git, heavy data out.
+# ============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+*.egg
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Secrets / env ---
+.env
+.env.*
+
+# ---------------------------------------------------------------------------
+# DATA: heavy or sensitive inputs are NOT committed.
+# Download instructions live in data/README.md.
+# ---------------------------------------------------------------------------
+data/raw/
+data/processed/
+data/external/
+
+# Raw field data & scenes anywhere in the repo (root, data/, ...)
+# Uncomment the two lines below if you must also block sample binaries:
+# *.tif
+# *.tiff
+# *.xlsx
+
+# --- Optuna HPO study database ---
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Model artifacts (too large / regenerable) ---
+*.joblib
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# --- Pipeline outputs (regenerable) ---
+outputs/
+sdb_outputs/
+rasters/
+models/
+metrics/
+reports/
+logs/
+plots/
+
+# Keep folder placeholders in data/ if you use them:
+!data/**/.gitkeep
+
+# --- Coverage / tooling ---
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
